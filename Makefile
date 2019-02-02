@@ -33,10 +33,13 @@ build/native:
 
 release: generate
 	mkdir -p release/src
+	mkdir -p release/js
 	mkdir -p release/include
 	cp -rf build/llhttp.h release/include/
 	cp -rf build/c/llhttp.c release/src/
 	cp -rf src/native/*.c release/src/
+	cp -rf build/js/*.js release/js/
+	cp -rf src/native/*.js release/js/
 	cp -rf src/llhttp.gyp release/
 	cp -rf src/common.gypi release/
 	cp -rf README.md release/

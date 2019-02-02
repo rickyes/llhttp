@@ -18,7 +18,7 @@ const SRC_DIR = path.join(__dirname, '..', 'src');
 const BITCODE_FILE = path.join(BITCODE_DIR, 'llhttp.bc');
 const C_FILE = path.join(C_DIR, 'llhttp.c');
 const JS_FILE = path.join(JS_DIR, 'llhttp.js');
-const JS_HEADER_FILE = path.join(JS_DIR, 'llhttp-header.js');
+const JS_HEADER_FILE = path.join(JS_DIR, 'constants.js');
 const HEADER_FILE = path.join(BUILD_DIR, 'llhttp.h');
 
 for (const dir of [ BUILD_DIR, BITCODE_DIR, C_DIR, JS_DIR ]) {
