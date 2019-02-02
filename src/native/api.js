@@ -16,8 +16,9 @@ const Parser = require('./llhttp.js')(binding);
 
 const TYPE = binding.TYPE;
 const FINISH = binding.FINISH;
-const ERROR = binding.ERROR;
-const METHODS = binding.METHODS;
+
+export const METHODS = Object.assign({}, binding.METHODS);
+export const ERROR = Object.assign({}, binding.ERROR);
 
 const REV_ERROR = new Map();
 for (const key of Object.keys(ERROR)) {
@@ -56,7 +57,7 @@ export default class HTTPParser {
   }
 
   execute(data) {
-    this._parser.execute(data);
+    return this._parser.execute(data);
   }
 
   finish() {
@@ -83,11 +84,11 @@ export default class HTTPParser {
   }
 
   messageNeedsEOF() {
-    return binding.llhttp_message_needs_eof(this._parser);
+    return binding.llhttp_message_needs_eof(this._parser) ? true : false;
   }
 
   shouldKeepAlive() {
-    return binding.llhttp_should_keep_alive(this._parser);
+    return binding.llhttp_should_keep_alive(this._parser) ? true : false;
   };
 
   pause() {
@@ -139,6 +140,3 @@ export default class HTTPParser {
     return REV_METHODS.get(code);
   }
 }
-
-HTTPParser.METHODS = Object.assign({}, METHODS);
-HTTPParser.ERROR = Object.assign({}, ERROR);

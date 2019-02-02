@@ -111,10 +111,10 @@ void llhttp_resume(llhttp_t* parser);
  */
 void llhttp_resume_after_upgrade(llhttp_t* parser);
 
-/* Returns the latest return error */
+/* Returns the last returned error */
 llhttp_errno_t llhttp_get_errno(const llhttp_t* parser);
 
-/* Returns the verbal explanation of the latest returned error.
+/* Returns the verbal explanation of the last returned error.
  *
  * Note: User callback should set error reason when returning the error. See
  * `llhttp_set_error_reason()` for details.

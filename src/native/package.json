@@ -1,0 +1,12 @@
+{
+  "name": "llhttp",
+  "version": "1.1.1",
+  "description": "HTTP parser in LLVM IR",
+  "main": "lib/api.js",
+  "types": "lib/api.d.ts",
+  "files": [
+    "lib"
+  ],
+  "author": "Fedor Indutny <fedor@indutny.com> (http://darksi.de/)",
+  "license": "MIT"
+}
