@@ -12,13 +12,16 @@ const pkg = JSON.parse(fs.readFileSync(pkgFile).toString());
 const BUILD_DIR = path.join(__dirname, '..', 'build');
 const BITCODE_DIR = path.join(BUILD_DIR, 'bitcode');
 const C_DIR = path.join(BUILD_DIR, 'c');
+const JS_DIR = path.join(BUILD_DIR, 'js');
 const SRC_DIR = path.join(__dirname, '..', 'src');
 
 const BITCODE_FILE = path.join(BITCODE_DIR, 'llhttp.bc');
 const C_FILE = path.join(C_DIR, 'llhttp.c');
+const JS_FILE = path.join(JS_DIR, 'llhttp.js');
+const JS_HEADER_FILE = path.join(JS_DIR, 'llhttp-header.js');
 const HEADER_FILE = path.join(BUILD_DIR, 'llhttp.h');
 
-for (const dir of [ BUILD_DIR, BITCODE_DIR, C_DIR ]) {
+for (const dir of [ BUILD_DIR, BITCODE_DIR, C_DIR, JS_DIR ]) {
   try {
     fs.mkdirSync(dir);
   } catch (e) {
@@ -54,6 +57,7 @@ headers += `#define LLHTTP_VERSION_PATCH ${version.patch}\n`;
 headers += '\n';
 
 const cHeaders = new llhttp.CHeaders();
+const jsHeaders = new llhttp.JSHeaders();
 
 headers += artifacts.header;
 
@@ -70,4 +74,6 @@ headers += '#endif  /* INCLUDE_LLHTTP_H_ */\n';
 
 fs.writeFileSync(BITCODE_FILE, artifacts.bitcode);
 fs.writeFileSync(C_FILE, artifacts.c);
+fs.writeFileSync(JS_FILE, artifacts.js);
+fs.writeFileSync(JS_HEADER_FILE, jsHeaders.build());
 fs.writeFileSync(HEADER_FILE, headers);

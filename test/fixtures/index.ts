@@ -14,14 +14,17 @@ export { FixtureResult };
 
 const BUILD_DIR = path.join(__dirname, '..', 'tmp');
 const CHEADERS_FILE = path.join(BUILD_DIR, 'cheaders.h');
+const JSHEADERS_FILE = path.join(BUILD_DIR, 'js-headers.js');
 
 const cheaders = new llhttp.CHeaders().build();
+const jsheaders = new llhttp.JSHeaders().build();
 try {
   fs.mkdirSync(BUILD_DIR);
 } catch (e) {
   // no-op
 }
 fs.writeFileSync(CHEADERS_FILE, cheaders);
+fs.writeFileSync(JSHEADERS_FILE, jsheaders);
 
 const fixtures = new Fixture({
   buildDir: path.join(__dirname, '..', 'tmp'),
@@ -30,6 +33,10 @@ const fixtures = new Fixture({
     '-DLLPARSE__ERROR_PAUSE=' + llhttp.constants.ERROR.PAUSED,
     '-include', CHEADERS_FILE,
     path.join(__dirname, 'extra.c'),
+  ],
+  extraJS: [
+    JSHEADERS_FILE,
+    path.join(__dirname, 'extra.js'),
   ],
   maxParallel: process.env.LLPARSE_DEBUG ? 1 : undefined,
 });
@@ -55,11 +62,14 @@ export function build(llparse: LLParse, node: any, outFile: string,
   }
 
   const extra = options.extra === undefined ? [] : options.extra.slice();
+  let initJS: string | undefined;
   if (ty === 'request' || ty === 'response') {
     extra.push(`-DLLPARSE__TEST_INIT=llhttp__test_init_${ty}`);
+    initJS = `llhttp__test_init_${ty}`;
   }
 
   return fixtures.build(artifacts, outFile, Object.assign(options, {
     extra,
+    initJS,
   }));
 }

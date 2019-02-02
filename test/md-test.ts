@@ -51,10 +51,12 @@ function buildMode(mode: llhttp.HTTPMode, ty: TestType): FixtureResult {
   let node;
   let prefix: string;
   let extra: ReadonlyArray<string>;
+  let extraJS: ReadonlyArray<string>;
   if (ty === 'url') {
     node = urlNode[mode];
     prefix = 'url';
     extra = [];
+    extraJS = [];
   } else {
     node = httpNode[mode];
     prefix = 'http';
@@ -62,10 +64,14 @@ function buildMode(mode: llhttp.HTTPMode, ty: TestType): FixtureResult {
       '-DLLHTTP__TEST_HTTP',
       path.join(__dirname, '..', 'src', 'native', 'http.c'),
     ];
+    extraJS = [
+      path.join(__dirname, '..', 'src', 'native', 'http.js'),
+    ];
   }
 
   return build(node.llparse, node.entry, `${prefix}-${mode}-${ty}`, {
     extra,
+    extraJS,
   }, ty);
 }
 

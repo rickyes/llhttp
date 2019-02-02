@@ -37,7 +37,7 @@ int llhttp__after_headers_complete(llhttp_t* parser, const char* p,
                                    const char* endp) {
   int hasBody;
 
-  hasBody = parser->flags & F_CHUNKED || parser->content_length > 0;
+  hasBody = (parser->flags & F_CHUNKED) || parser->content_length > 0;
   if (parser->upgrade && (parser->method == HTTP_CONNECT ||
                           (parser->flags & F_SKIPBODY) || !hasBody)) {
     /* Exit, the rest of the message is in a different protocol. */

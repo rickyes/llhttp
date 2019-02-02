@@ -8,3 +8,4 @@ export { HTTPMode };
 export { HTTP } from './llhttp/http';
 export { URL } from './llhttp/url';
 export { CHeaders } from './llhttp/c-headers';
+export { JSHeaders } from './llhttp/js-headers';
