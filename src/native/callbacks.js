@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = (binding) => {
+export default (binding) => {
   binding.llhttp__on_message_begin = (p, buf, off) => {
     const s = p.source;
     return s.onMessageBegin ? s.onMessageBegin() : 0;

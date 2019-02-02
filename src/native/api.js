@@ -1,4 +1,6 @@
-'use strict';
+import installConstants from './constants';
+import installHTTP from './http';
+import installCallbacks from './callbacks';
 
 function unreachable() {
   throw new Error('Unreachable');
@@ -6,9 +8,10 @@ function unreachable() {
 
 const binding = {};
 
-require('./constants.js')(binding, false);
-require('./http.js')(binding, false);
-require('./callbacks.js')(binding, false);
+installConstants(binding, false);
+installHTTP(binding, false);
+installCallbacks(binding, false);
+
 const Parser = require('./llhttp.js')(binding);
 
 const TYPE = binding.TYPE;
@@ -26,7 +29,7 @@ for (const key of Object.keys(METHODS)) {
   REV_METHODS.set(METHODS[key], key);
 }
 
-class HTTPParser {
+export default class HTTPParser {
   constructor(type = 'both') {
     this._parser = new Parser();
     this._parser.source = this;
@@ -139,5 +142,3 @@ class HTTPParser {
 
 HTTPParser.METHODS = Object.assign({}, METHODS);
 HTTPParser.ERROR = Object.assign({}, ERROR);
-
-module.exports = HTTPParser;

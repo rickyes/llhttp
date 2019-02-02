@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = (binding, inBench) => {
+export default (binding, inBench) => {
   const HTTP_BOTH = binding.TYPE.BOTH;
   const HTTP_REQUEST = binding.TYPE.REQUEST;
   const HTTP_RESPONSE = binding.TYPE.RESPONSE;

@@ -76,6 +76,20 @@ if (isURL) {
     'bench',
     'http://example.com/path/to/file?query=value#fragment'
   ], { stdio: 'inherit' });
+
+  console.log('url loose (JS)');
+
+  spawnSync('./test/tmp/url-loose-url-js', [
+    'bench',
+    'http://example.com/path/to/file?query=value#fragment'
+  ], { stdio: 'inherit' });
+
+  console.log('url strict (JS)');
+
+  spawnSync('./test/tmp/url-strict-url-js', [
+    'bench',
+    'http://example.com/path/to/file?query=value#fragment'
+  ], { stdio: 'inherit' });
 }
 
 if (isHTTP) {
@@ -104,6 +118,20 @@ if (isHTTP) {
     console.log('http strict: "%s" (C)', name);
 
     spawnSync('./test/tmp/http-strict-request-c', [
+      'bench',
+      request
+    ], { stdio: 'inherit' });
+
+    console.log('http loose: "%s" (JS)', name);
+
+    spawnSync('./test/tmp/http-loose-request-js', [
+      'bench',
+      request
+    ], { stdio: 'inherit' });
+
+    console.log('http strict: "%s" (JS)', name);
+
+    spawnSync('./test/tmp/http-strict-request-js', [
       'bench',
       request
     ], { stdio: 'inherit' });

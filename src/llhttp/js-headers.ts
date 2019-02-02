@@ -7,7 +7,7 @@ export class JSHeaders {
   public build(): string {
     let res = '';
 
-    res += 'module.exports = (binding) => {\n';
+    res += 'export default (binding) => {\n';
 
     res += this.buildEnum('ERROR', enumToMap(constants.ERROR));
     res += this.buildEnum('METHODS', enumToMap(constants.METHODS));
